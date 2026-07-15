@@ -4,8 +4,10 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
 
-// Load env vars
-dotenv.config();
+// Load env vars only in development
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 
 // Connect to database
 connectDB();
@@ -66,3 +68,4 @@ const server = app.listen(PORT, () => {
   
   setInterval(updateExpiredCampaigns, 5 * 60 * 1000);
 });
+
