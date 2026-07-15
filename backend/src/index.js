@@ -10,7 +10,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Connect to database
-connectDB();
+connectDB().catch(err => {
+  console.error('Failed to initialize database connection. Application may not function correctly.');
+});
 
 const app = express();
 
