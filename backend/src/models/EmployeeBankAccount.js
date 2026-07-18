@@ -46,13 +46,12 @@ const employeeBankAccountSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Require real bank details when paying to a bank account
-employeeBankAccountSchema.pre('save', function (next) {
+employeeBankAccountSchema.pre('save', function () {
   if (this.disbursementMethod === 'BankAccount') {
     if (!this.accountNumber && !this.iban) {
-      return next(new Error('Bank account disbursement requires accountNumber or IBAN.'));
+      throw new Error('Bank account disbursement requires accountNumber or IBAN.');
     }
   }
-  next();
 });
 
 
